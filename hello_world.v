@@ -7,15 +7,43 @@ pub struct WebServer {
 }
 
 pub fn index_html(web &C.cWS, r &C.cWR, route &C.WebRoute, socket int) {
-	controls := [
-     &C.Control{ Tag: ControlTag.head_tag, SubControls: [
-        	&C.Control{ Tag: ControlTag.title_tag, Text: c'Test Page' },
-        	C.NULL,
-        ]!},
-    	C.NULL,
-	]!
+	mut controls := []C.Control{}
+	mut subcontrols := []C.Control{}
+	mut styles := []C.CSS{}
+
+	styles << &C.CSS{ Class: c'body', Selector: 0, Data: ([c'background-color: #000', c'color: #fff', C.NULL]).data }
+
+	title := &C.Control{ 
+		Tag: websign.ControlTag.title_tag, 
+		Text: c'Test Page'
+		OnClickJS: C.NULL,
+		FormID: C.NULL,
+		DisplayID: C.NULL,
+		Data: C.NULL,
+		ID: C.NULL,
+		Type: C.NULL,
+		Class: C.NULL,
+		href: C.NULL,
+		CSS: C.NULL,
+		SubControls: C.NULL
+	}
+
+	controls << &C.Control{ 
+		Tag: websign.ControlTag.head_tag, 
+		OnClickJS: C.NULL,
+		FormID: C.NULL,
+		DisplayID: C.NULL,
+		Data: C.NULL,
+		ID: C.NULL,
+		Type: C.NULL,
+		Text: C.NULL,
+		Class: C.NULL,
+		href: C.NULL,
+		CSS: C.NULL,
+		SubControls: &&C.Control(&subcontrols)
+	}
 	
-	C.ConstructTemplate(route, &&C.Control(controls), C.NULL)
+	C.ConstructTemplate(route, controls.data, styles.data)
 }
 
 pub fn test(web &C.cWS, r &C.cWR, route &C.WebRoute, socket int) {
@@ -23,7 +51,7 @@ pub fn test(web &C.cWS, r &C.cWR, route &C.WebRoute, socket int) {
     C.AppendKey(&new_headers, c'Content-Type', c'text/html; charset=UTF-8')
     C.AppendKey(&new_headers, c'Connection', c'close')
 
-    C.SendResponse(web, socket, 200, &new_headers, C.Map{arr: C.NULL}, c'Hello World')
+    C.SendResponse(web, socket, 200, &new_headers, C.Map{arr: C.NULL}, route.Template)
 }
 
 fn main() {

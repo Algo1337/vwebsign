@@ -1,6 +1,6 @@
 module websign
 
-#flag -lwebsign -lstr -larr -lmap -lpthread
+#flag -lwebsign -lstr -larr -lmap -lpthread -g -g3 -ggdb
 #include <Net/web.h>
 
 #include <time.h>
@@ -44,6 +44,7 @@ pub enum StatusCode {
     ok = 200
 }
 
+@[typedef]
 pub enum ControlTag {
     no_tag                              = 8490
 
@@ -98,7 +99,7 @@ pub struct C.WJS {
 @[typedef]
 pub struct C.Control {
     Parent              voidptr
-    Tag                 int        // ControlTag
+    Tag                 ControlTag        // ControlTag
     ID                  &char
     Type                &char             // Type for <input> <button> <select> <script>
     Text                &char             // text for tags: <p> <h1> <h2> <h3>
