@@ -15,7 +15,7 @@ pub fn index_html(web &C.cWS, r &C.cWR, route &C.WebRoute, socket int) {
     	C.NULL,
 	]!
 	
-	C.ConstructTemplate(route, controls, C.NULL)
+	C.ConstructTemplate(route, &&C.Control(controls), C.NULL)
 }
 
 pub fn test(web &C.cWS, r &C.cWR, route &C.WebRoute, socket int) {
