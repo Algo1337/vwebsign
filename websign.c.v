@@ -105,7 +105,7 @@ pub struct C.Control {
     Text                &char             // text for tags: <p> <h1> <h2> <h3>
     Class               &char             // class=""
     href                &char             // href for <a>
-    CSS                 &char             // CSS Function Generator for the tag <div style="CSS FUNCTION"></div>
+    CSS                 &&char             // CSS Function Generator for the tag <div style="CSS FUNCTION"></div>
     CSSCount            int
     Data                &char             // For Any Other Data In the Opening Tag <div Data... > </div>
     OnClick             int               // Enable this to 1 and Use FormID and DisplayID

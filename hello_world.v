@@ -11,11 +11,11 @@ pub fn index_html(web &C.cWS, r &C.cWR, route &C.WebRoute, socket int) {
 	mut subcontrols := []C.Control{}
 	mut styles := []C.CSS{}
 
-	styles << &C.CSS{ Class: c'body', Selector: 0, Data: ([c'background-color: #000', c'color: #fff', C.NULL]).data }
+	styles << &C.CSS{ Class: c'body', Selector: 0, Data: &&char( [c"background-color: #000", c"color: #fff"].data ) }
 
 	title := &C.Control{ 
 		Tag: websign.ControlTag.title_tag, 
-		Text: c'Test Page'
+		Text: c'Test Page',
 		OnClickJS: C.NULL,
 		FormID: C.NULL,
 		DisplayID: C.NULL,
