@@ -6,47 +6,46 @@ pub struct WebServer {
     port    int
 }
 
-pub fn index_html(web &C.cWS, r &C.cWR, route &C.WebRoute, socket int) {
-	mut controls := []C.Control{}
-	mut subcontrols := []C.Control{}
-	mut styles := []C.CSS{}
+pub fn index_html(web &C.cWS, r &C.cWR, mut route &C.WebRoute, socket int) {
+	println("Index Template Constructor Executing....")
 
-	styles << &C.CSS{ Class: c'body', Selector: 0, Data: &&char( [c"background-color: #000", c"color: #fff"].data ) }
+	mut controls := C.NewArray(C.NULL)
+	mut css_style := C.NewArray(C.NULL)
 
-	title := &C.Control{ 
-		Tag: websign.ControlTag.title_tag, 
-		Text: c'Test Page',
-		OnClickJS: C.NULL,
-		FormID: C.NULL,
-		DisplayID: C.NULL,
-		Data: C.NULL,
-		ID: C.NULL,
-		Type: C.NULL,
-		Class: C.NULL,
-		href: C.NULL,
-		CSS: C.NULL,
-		SubControls: C.NULL
+	mut scss := C.NewArray(C.NULL)
+	chk := C.Array__Append(&scss, c"background-color: #000")
+	C.Array__Append(&scss, C.NULL)
+	if chk <= 0 {
+		println("HERE\n")
 	}
 
-	controls << &C.Control{ 
-		Tag: websign.ControlTag.head_tag, 
-		OnClickJS: C.NULL,
-		FormID: C.NULL,
-		DisplayID: C.NULL,
-		Data: C.NULL,
-		ID: C.NULL,
-		Type: C.NULL,
-		Text: C.NULL,
-		Class: C.NULL,
-		href: C.NULL,
-		CSS: C.NULL,
-		SubControls: &&C.Control(&subcontrols)
-	}
+	C.Array__Append(&css_style, &C.CSS{ Class: c"body", Selector: 0, Data: scss.arr })
+	C.Array__Append(&css_style, C.NULL)
+
+	mut head := C.CreateControl(8492, C.NULL, C.NULL, C.NULL, C.NULL)
+	mut title := C.CreateControl(8494, C.NULL, C.NULL, c"Hello World", C.NULL)
+	C.AppendControl(head, title)
+	C.AppendControl(head, C.NULL)
+	C.Array__Append(&controls, head)
 	
-	C.ConstructTemplate(route, controls.data, styles.data)
+
+	mut body := C.CreateControl(8493, C.NULL, C.NULL, C.NULL, C.NULL)
+	mut pt := C.CreateControl(8499, C.NULL, C.NULL, c"Hello Websign from V", C.NULL)
+	C.AppendControl(body, pt)
+	C.AppendControl(body, C.NULL)
+	C.Array__Append(&controls, body)
+	C.Array__Append(&controls, C.NULL)
+	
+	control_set := C.convert(controls.arr, 2)
+	css_set := C.convert_css(css_style.arr, 1)
+	n := C.ConstructTemplate(route, &&C.Control(control_set), &&C.CSS(css_set))
+	if n <= 0 {
+		println("failed ${n}")
+	}
 }
 
-pub fn test(web &C.cWS, r &C.cWR, route &C.WebRoute, socket int) {
+pub fn test(web &C.cWS, r &C.cWR, mut route &C.WebRoute, socket int) {
+	index_html(web, r, mut route, socket)
     new_headers := C.NewMap()
     C.AppendKey(&new_headers, c'Content-Type', c'text/html; charset=UTF-8')
     C.AppendKey(&new_headers, c'Connection', c'close')
@@ -55,20 +54,13 @@ pub fn test(web &C.cWS, r &C.cWR, route &C.WebRoute, socket int) {
 }
 
 fn main() {
-    web := C.StartWebServer(C.NewString(C.NULL), 80, 0)
+    web := C.StartWebServer(C.NewString(c""), 50, 0)
     if web == C.NULL {
         println("ERROR")
     }
 
-    C.AddRoute(web, C.WebRoute{
-        Name: c'index',
-        Path: c'/',
-        Handler: voidptr(test)
-        Generator: voidptr(index_html)
-        Template: C.NULL,
-		Controls: C.NULL,
-        CSS: C.NULL
-    })
+	new_route := C.CreateRoute(c"index", c"/", voidptr(test))
+    C.AddRoutePtr(web, new_route)
 
     C.RunServer(web, 99, C.NULL)
 
