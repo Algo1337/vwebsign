@@ -1,20 +1,19 @@
-import time
+import time 
 import websign
 
-pub struct WebServer {
-    ip      string
-    port    int
-}
-
-pub fn index_html(web &C.cWS, r &C.cWR, mut route &C.WebRoute, socket int) {
+pub fn index_html(mut route &C.WebRoute) {
 	println("Index Template Constructor Executing....")
 
+	mut gg := []C.Control{}
 	mut controls := C.NewArray(C.NULL)
 	mut css_style := C.NewArray(C.NULL)
 
 	mut scss := C.NewArray(C.NULL)
-	chk := C.Array__Append(&scss, c"background-color: #000; color: #fff")
+	chk := C.Array__Append(&scss, c"background-color: #000")
 	C.Array__Append(&scss, C.NULL)
+	if chk <= 0 {
+		println("HERE\n")
+	}
 
 	C.Array__Append(&css_style, &C.CSS{ Class: c"body", Selector: 0, Data: scss.arr })
 	C.Array__Append(&css_style, C.NULL)
@@ -42,27 +41,17 @@ pub fn index_html(web &C.cWS, r &C.cWR, mut route &C.WebRoute, socket int) {
 	}
 }
 
-pub fn test(web &C.cWS, r &C.cWR, mut route &C.WebRoute, socket int) {
-	index_html(web, r, mut route, socket)
-    new_headers := C.NewMap()
-    C.AppendKey(&new_headers, c'Content-Type', c'text/html; charset=UTF-8')
-    C.AppendKey(&new_headers, c'Connection', c'close')
-
-    C.SendResponse(web, socket, 200, &new_headers, C.Map{arr: C.NULL}, route.Template)
-}
-
 fn main() {
-    web := C.StartWebServer(C.NewString(c""), 50, 0)
+	    web := C.StartWebServer(C.NewString(c""), 50, 0)
     if web == C.NULL {
         println("ERROR")
     }
 
-	new_route := C.CreateRoute(c"index", c"/", voidptr(test))
+	new_route := C.CreateRoute(c"index", c"/", C.NULL)
     C.AddRoutePtr(web, new_route)
-
-    C.RunServer(web, 99, C.NULL)
-
-    for {
-        time.sleep(1 * time.second)
-    }
+	unsafe {
+		web.CFG.Routes[0].ReadOnly = 1
+		index_html(mut web.CFG.Routes[0])
+		println(web.CFG.Routes[0].Template)
+	}
 }
