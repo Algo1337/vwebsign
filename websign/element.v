@@ -4,6 +4,7 @@ module websign
 pub struct Element {
 	pub mut:
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 		Parent         	string
 		Tag            	ControlTag
 		ID             	string
@@ -35,6 +36,8 @@ pub fn new_element(ControlTag tag, string sclass, string id, string text) Elemen
 pub fn (mut e Element) construct_element() int {
 
 =======
+=======
+>>>>>>> Stashed changes
 		parent         	string
 		tag            	ControlTag
 		id             	string
@@ -74,5 +77,8 @@ pub fn create_new_element(tag ControlTag, sclass string, id string, text string,
 
 pub fn (mut e Element) construct_element() int {
 	return 1
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 }

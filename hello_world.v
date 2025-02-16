@@ -7,6 +7,7 @@ pub struct WebServer {
 }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 pub fn index_html(web &C.cWS, r &C.cWR, mut route &C.WebRoute, socket int) {
 	println("Index Template Constructor Executing....")
 
@@ -60,10 +61,43 @@ pub fn index_html(web &C.cWS, r &C.cWR, mut route &C.WebRoute, socket int) {
 	C.Array__Append(&controls, head)
 	
 
+=======
+
+pub fn index_html(web &C.cWS, r &C.cWR, mut route &C.WebRoute, socket int) {
+	println("Index Template Constructor Executing....")
+
+	mut controls := C.NewArray(C.NULL)
+	mut css_style := C.NewArray(C.NULL)
+
+	mut scss := C.NewArray(C.NULL)
+	C.Array__Append(&scss, c"background-color: #000; color: #fff")
+	C.Array__Append(&scss, C.NULL)
+
+	C.Array__Append(&css_style, &C.CSS{ Class: c"body", Selector: 0, Data: scss.arr })
+	C.Array__Append(&css_style, C.NULL)
+
+	// mut head := C.CreateControl(8492, C.NULL, C.NULL, C.NULL, C.NULL)
+	mut body, body_css := websign.create_new_element(websign.ControlTag.body_tag, "body", "", "", [
+		"background-color: #000",
+		"color: #fff",
+		C.NULL
+	])
+	mut head, _ := websign.create_new_element(websign.ControlTag.head_tag, "", "", "", [])
+
+	mut title := C.CreateControl(8494, C.NULL, C.NULL, c"Hello World", C.NULL)
+	// C.AppendControl(head, title)
+	// C.AppendControl(head, C.NULL)
+	C.Array__Append(&controls, head)
+	
+
+>>>>>>> Stashed changes
 	// mut body := C.CreateControl(8493, C.NULL, C.NULL, C.NULL, C.NULL)
 	mut pt := C.CreateControl(8499, C.NULL, C.NULL, c"Hello Websign from V", C.NULL)
 	// C.AppendControl(body, pt)
 	// C.AppendControl(body, C.NULL)
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 	C.Array__Append(&controls, body)
 	C.Array__Append(&controls, C.NULL)
@@ -76,6 +110,7 @@ pub fn index_html(web &C.cWS, r &C.cWR, mut route &C.WebRoute, socket int) {
 		println("failed ${n}")
 	}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 }
 
 =======
@@ -85,6 +120,14 @@ pub fn index_html(web &C.cWS, r &C.cWR, mut route &C.WebRoute, socket int) {
 	C.DestructArray(&scss)
 }
 
+=======
+
+	C.DestructArray(&controls)
+	C.DestructArray(&css_style)
+	C.DestructArray(&scss)
+}
+
+>>>>>>> Stashed changes
 
 // pub fn index_html(web &C.cWS, r &C.cWR, mut route &C.WebRoute, socket int) {
 // 	println("Index Template Constructor Executing....")
@@ -126,6 +169,9 @@ pub fn index_html(web &C.cWS, r &C.cWR, mut route &C.WebRoute, socket int) {
 // 	C.DestructArray(&scss)
 // }
 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 pub fn test(web &C.cWS, r &C.cWR, mut route &C.WebRoute, socket int) {
 	index_html(web, r, mut route, socket)

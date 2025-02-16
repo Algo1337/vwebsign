@@ -32,6 +32,10 @@ typedef struct multi_return_int_int_int_int multi_return_int_int_int_int;
 typedef struct multi_return_int_int_int multi_return_int_int_int;
 typedef struct multi_return_int_int_int_int_int_i64_bool multi_return_int_int_int_int_int_i64_bool;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+typedef struct multi_return_websign__Element_ref_C__CSS multi_return_websign__Element_ref_C__CSS;
+>>>>>>> Stashed changes
 =======
 typedef struct multi_return_websign__Element_ref_C__CSS multi_return_websign__Element_ref_C__CSS;
 >>>>>>> Stashed changes
@@ -81,6 +85,10 @@ typedef struct time__StopWatchOptions time__StopWatchOptions;
 typedef struct time__StopWatch time__StopWatch;
 typedef struct time__Time time__Time;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+typedef struct websign__Element websign__Element;
+>>>>>>> Stashed changes
 =======
 typedef struct websign__Element websign__Element;
 >>>>>>> Stashed changes
@@ -1270,9 +1278,15 @@ typedef string Array_fixed_string_11 [11];
 typedef voidptr Array_fixed_voidptr_11 [11];
 typedef array Array_RepIndex;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 typedef array Array_C__Control;
 typedef map Map_string_int;
 typedef array Array_bool;
+=======
+typedef map Map_string_int;
+typedef array Array_bool;
+typedef array Array_C__Control;
+>>>>>>> Stashed changes
 =======
 typedef map Map_string_int;
 typedef array Array_bool;
@@ -1550,7 +1564,10 @@ struct time__StopWatch {
 };
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 struct websign__Element {
 	string parent;
 	websign__ControlTag tag;
@@ -1569,6 +1586,9 @@ struct websign__Element {
 	Control* control;
 };
 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 struct mapnode {
 	voidptr* children;
@@ -1650,12 +1670,18 @@ struct multi_return_int_int_int_int_int_i64_bool {
 };
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 struct multi_return_websign__Element_ref_C__CSS {
 	websign__Element arg0;
 	CSS* arg1;
 };
 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 struct multi_return_u64_u64 {
 	u64 arg0;
@@ -2051,6 +2077,10 @@ time__Time time__unix_nanosecond(i64 abs_unix_timestamp, int nanosecond);
 VV_LOCAL_SYMBOL multi_return_int_int_int time__calculate_date_from_day_offset(i64 day_offset_);
 VV_LOCAL_SYMBOL multi_return_int_int_int time__calculate_time_from_second_offset(i64 second_offset_);
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+multi_return_websign__Element_ref_C__CSS websign__create_new_element(websign__ControlTag tag, string sclass, string id, string text, Array_string style);
+>>>>>>> Stashed changes
 =======
 multi_return_websign__Element_ref_C__CSS websign__create_new_element(websign__ControlTag tag, string sclass, string id, string text, Array_string style);
 >>>>>>> Stashed changes
@@ -2409,7 +2439,11 @@ int v_typeof_interface_idx_IError(int sidx) {
 	if (sidx == _IError_Error_index) return 83;
 	if (sidx == _IError_MessageError_index) return 85;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 	if (sidx == _IError_time__TimeParseError_index) return 138;
+=======
+	if (sidx == _IError_time__TimeParseError_index) return 137;
+>>>>>>> Stashed changes
 =======
 	if (sidx == _IError_time__TimeParseError_index) return 137;
 >>>>>>> Stashed changes
@@ -7792,6 +7826,7 @@ VV_LOCAL_SYMBOL multi_return_int_int_int time__calculate_time_from_second_offset
 	return (multi_return_int_int_int){.arg0=((int)(hour_)), .arg1=((int)(minute_)), .arg2=((int)(second_offset))};
 }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 void main__index_html(cWS* web, cWR* r, WebRoute* route, int socket) {
 	println(_SLIT("Index Template Constructor Executing...."));
 	Array_C__Control gg = __new_array_with_default(0, 0, sizeof(Control), 0);
@@ -7815,6 +7850,8 @@ void main__index_html(cWS* web, cWR* r, WebRoute* route, int socket) {
 	AppendControl(body, pt);
 	AppendControl(body, NULL);
 =======
+=======
+>>>>>>> Stashed changes
 multi_return_websign__Element_ref_C__CSS websign__create_new_element(websign__ControlTag tag, string sclass, string id, string text, Array_string style) {
 	websign__Element e = ((websign__Element){.parent = (string){.str=(byteptr)"", .is_lit=1},.tag = tag,.id = string_str(id),.etype = (string){.str=(byteptr)"", .is_lit=1},.text = string_str(text),.__v_class = string_str(sclass),.href = (string){.str=(byteptr)"", .is_lit=1},.css = __new_array(0, 0, sizeof(string)),.data = (string){.str=(byteptr)"", .is_lit=1},.on_click = 0,.on_clickjs = (string){.str=(byteptr)"", .is_lit=1},.formid = (string){.str=(byteptr)"", .is_lit=1},.displayid = (string){.str=(byteptr)"", .is_lit=1},.subcontrols = __new_array(0, 0, sizeof(Control)),.control = CreateControl(((int)(tag)), sclass.str, id.str, text.str, NULL),});
 	struct Array css_data = NewArray(NULL);
@@ -7842,6 +7879,9 @@ void main__index_html(cWS* web, cWR* r, WebRoute* route, int socket) {
 	Control* title = CreateControl(8494, NULL, NULL, "Hello World", NULL);
 	Array__Append(&controls, head);
 	Control* pt = CreateControl(8499, NULL, NULL, "Hello Websign from V", NULL);
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 	Array__Append(&controls, body);
 	Array__Append(&controls, NULL);
@@ -7852,6 +7892,12 @@ void main__index_html(cWS* web, cWR* r, WebRoute* route, int socket) {
 		println(str_intp(2, _MOV((StrIntpData[]){{_SLIT("failed "), 0xfe07, {.d_i32 = n}}, {_SLIT0, 0, { .d_c = 0 }}})));
 	}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+	DestructArray(&controls);
+	DestructArray(&css_style);
+	DestructArray(&scss);
+>>>>>>> Stashed changes
 =======
 	DestructArray(&controls);
 	DestructArray(&css_style);
