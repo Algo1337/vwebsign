@@ -6,6 +6,7 @@ pub struct WebServer {
     port    int
 }
 
+<<<<<<< Updated upstream
 pub fn index_html(web &C.cWS, r &C.cWR, mut route &C.WebRoute, socket int) {
 	println("Index Template Constructor Executing....")
 
@@ -30,6 +31,40 @@ pub fn index_html(web &C.cWS, r &C.cWR, mut route &C.WebRoute, socket int) {
 	mut pt := C.CreateControl(8499, C.NULL, C.NULL, c"Hello Websign from V", C.NULL)
 	C.AppendControl(body, pt)
 	C.AppendControl(body, C.NULL)
+=======
+
+pub fn index_html(web &C.cWS, r &C.cWR, mut route &C.WebRoute, socket int) {
+	println("Index Template Constructor Executing....")
+
+	mut controls := C.NewArray(C.NULL)
+	mut css_style := C.NewArray(C.NULL)
+
+	mut scss := C.NewArray(C.NULL)
+	C.Array__Append(&scss, c"background-color: #000; color: #fff")
+	C.Array__Append(&scss, C.NULL)
+
+	C.Array__Append(&css_style, &C.CSS{ Class: c"body", Selector: 0, Data: scss.arr })
+	C.Array__Append(&css_style, C.NULL)
+
+	// mut head := C.CreateControl(8492, C.NULL, C.NULL, C.NULL, C.NULL)
+	mut body, body_css := websign.create_new_element(websign.ControlTag.body_tag, "body", "", "", [
+		"background-color: #000",
+		"color: #fff",
+		C.NULL
+	])
+	mut head, _ := websign.create_new_element(websign.ControlTag.head_tag, "", "", "", [])
+
+	mut title := C.CreateControl(8494, C.NULL, C.NULL, c"Hello World", C.NULL)
+	// C.AppendControl(head, title)
+	// C.AppendControl(head, C.NULL)
+	C.Array__Append(&controls, head)
+	
+
+	// mut body := C.CreateControl(8493, C.NULL, C.NULL, C.NULL, C.NULL)
+	mut pt := C.CreateControl(8499, C.NULL, C.NULL, c"Hello Websign from V", C.NULL)
+	// C.AppendControl(body, pt)
+	// C.AppendControl(body, C.NULL)
+>>>>>>> Stashed changes
 	C.Array__Append(&controls, body)
 	C.Array__Append(&controls, C.NULL)
 	
@@ -40,8 +75,58 @@ pub fn index_html(web &C.cWS, r &C.cWR, mut route &C.WebRoute, socket int) {
 	if n <= 0 {
 		println("failed ${n}")
 	}
+<<<<<<< Updated upstream
 }
 
+=======
+
+	C.DestructArray(&controls)
+	C.DestructArray(&css_style)
+	C.DestructArray(&scss)
+}
+
+
+// pub fn index_html(web &C.cWS, r &C.cWR, mut route &C.WebRoute, socket int) {
+// 	println("Index Template Constructor Executing....")
+
+// 	mut controls := C.NewArray(C.NULL)
+// 	mut css_style := C.NewArray(C.NULL)
+
+// 	mut scss := C.NewArray(C.NULL)
+// 	C.Array__Append(&scss, c"background-color: #000; color: #fff")
+// 	C.Array__Append(&scss, C.NULL)
+
+// 	C.Array__Append(&css_style, &C.CSS{ Class: c"body", Selector: 0, Data: scss.arr })
+// 	C.Array__Append(&css_style, C.NULL)
+
+// 	mut head := C.CreateControl(8492, C.NULL, C.NULL, C.NULL, C.NULL)
+// 	mut title := C.CreateControl(8494, C.NULL, C.NULL, c"Hello World", C.NULL)
+// 	C.AppendControl(head, title)
+// 	C.AppendControl(head, C.NULL)
+// 	C.Array__Append(&controls, head)
+	
+
+// 	mut body := C.CreateControl(8493, C.NULL, C.NULL, C.NULL, C.NULL)
+// 	mut pt := C.CreateControl(8499, C.NULL, C.NULL, c"Hello Websign from V", C.NULL)
+// 	C.AppendControl(body, pt)
+// 	C.AppendControl(body, C.NULL)
+// 	C.Array__Append(&controls, body)
+// 	C.Array__Append(&controls, C.NULL)
+	
+// 	control_set := C.convert(controls.arr, 2)
+// 	css_set := C.convert_css(css_style.arr, 1)
+
+// 	n := C.ConstructTemplate(route, &&C.Control(control_set), &&C.CSS(css_set))
+// 	if n <= 0 {
+// 		println("failed ${n}")
+// 	}
+
+// 	C.DestructArray(&controls)
+// 	C.DestructArray(&css_style)
+// 	C.DestructArray(&scss)
+// }
+
+>>>>>>> Stashed changes
 pub fn test(web &C.cWS, r &C.cWR, mut route &C.WebRoute, socket int) {
 	index_html(web, r, mut route, socket)
     new_headers := C.NewMap()
