@@ -1,6 +1,6 @@
 module websign
 
-#flag -lwebsign -lstr -larr -lmap -lpthread -g -g3 -ggdb
+#flag -lwebsign -lstr -larr -lmap -lpthread -g -g3 -ggdb -w
 #include <Net/web.h>
 
 #include <time.h>
@@ -15,6 +15,10 @@ module websign
 #include <map.h>
 #include <OS/file.h>
 #include <Net/request.h>
+
+#include "@VMODROOT/websign/test.c"
+pub fn C.convert(voidptr, int) &&C.Control
+pub fn C.convert_css(voidptr, int) &&C.CSS
 
 pub struct C.String {
     data                        &char
@@ -123,7 +127,6 @@ pub struct C.WebRoute {
     Template            &char
 
     Handler             voidptr             // Web Route Handler
-    Generator           voidptr             // Generator UI/UX Template
 
     CSS                 &&C.CSS               // 2D Array CSS_SELECTOR_NAME => CSS_DATA (Cache)
     CSS_Count           int
@@ -146,7 +149,7 @@ pub struct C.cWS {
 pub struct C.WebServerConfig {
     DirRouteSearch      int             // Search for new route pages in a directory
 
-    Routes              C.WebRoute
+    Routes              &&C.WebRoute
     RouteCount          int
 
     Index               C.WebRoute
@@ -162,8 +165,6 @@ pub struct C.cWR {
     Queries             C.Map
     Body                C.String
 
-    StartTime           C.clock_t
-    EndTime             C.clock_t
     Elapsed             f64
 }
 
@@ -180,10 +181,10 @@ pub fn C.SearchRoute(&&C.cWS, &char)
 pub fn C.AddCSS(&C.WebRoute, &voidptr) int
 pub fn C.AddRoutes(&C.cWS, &C.WebRoute) int
 pub fn C.AddRoute(&C.cWS, C.WebRoute) int
+pub fn C.AddRoutePtr(&C.cWS, &C.WebRoute) int
 
 pub fn C.AddDynamicHandler(&C.cWS) int
 pub fn C.DestroyCfg(&C.WebServerConfig)
-pub fn C.DestroyRoute(&C.WebRoute)
 
 pub fn C.FindTag(&C.Control) &char
 pub fn C.FindTagType(&char) ControlTag
@@ -197,3 +198,13 @@ pub fn C.DumpControls(&C.Control, int) C.String
 
 pub fn C.process_html_line(&data) &&C.Control
 pub fn C.ParseHTMLContent(&char) &&C.Control
+
+pub fn C.CreateRoute(&char, &char, &voidptr) &C.WebRoute
+pub fn C.AppendParentControl(&C.WebRoute, &C.Control) int
+pub fn C.SetReadOnly(&C.WebRoute, &char) int
+pub fn C.DestroyWebRoute(&C.WebRoute)
+
+pub fn C.CreateControl(int, &char, &char, &char, &&C.Control) &C.Control
+pub fn C.AppendControl(&C.Control, &C.Control) int
+pub fn C.DestructControl(&C.Control, int, int)
+pub fn C.ConstructControl(&C.Control, int) C.String
