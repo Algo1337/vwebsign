@@ -85,6 +85,16 @@ pub enum WJS_Action_T {
 }
 
 @[typedef]
+pub struct C.Cookie {
+    name            &char
+    value           &char
+    Path            &char
+    expires         int
+    maxage          int
+    HTTPOnly        int
+}
+
+@[typedef]
 pub struct C.CSS {
     Class           &char
     Data            &char
@@ -169,42 +179,68 @@ pub struct C.cWR {
 }
 
 pub fn C.StartWebServer(C.String, int, int) &C.cWS
+pub fn C.SetDefaultHeaders()
 pub fn C.RunServer(&C.cWS, int, &char)
 pub fn C.ParseAndCheckRoute(args &voidptr)
 pub fn C.ParseRequest(&char) &C.cWR
+pub fn C.ParseCookies(&C.cWR, C.String) int
 pub fn C.GetPostQueries(&C.cWS, &C.cWR)
 pub fn C.RetrieveGetParameters(&C.cWS, &C.cWR)
 pub fn C.SendResponse(&C.cWS, int, int, C.Map, C.Map, &char)
+pub fn C.web_body_var_replacement(C.Map, &char) C.String
+pub fn C.fetch_cf_post_data(&C.cWS, &C.cWR, int)
+pub fn C.GetSocketIP(int) &char
+pub fn C.CreateCookies(&&C.Cookie) C.Map
+pub fn C.statuscode_to_str(C.StatusCode) &char
 pub fn C.DestroyServer(web C.cWS)
+pub fn C.DestroyReq(&C.cWR)
 
+pub fn C.EnableLiveHandler(&C.cWS) int
 pub fn C.SearchRoute(&&C.cWS, &char)
 pub fn C.AddCSS(&C.WebRoute, &voidptr) int
 pub fn C.AddRoutes(&C.cWS, &C.WebRoute) int
 pub fn C.AddRoute(&C.cWS, C.WebRoute) int
 pub fn C.AddRoutePtr(&C.cWS, &C.WebRoute) int
-
-pub fn C.AddDynamicHandler(&C.cWS) int
+pub fn C.AddCSS(&C.WebRoute, voidptr) int
+pub fn C.control2str(&C.Control)
 pub fn C.DestroyCfg(&C.WebServerConfig)
+
 
 pub fn C.FindTag(&C.Control) &char
 pub fn C.FindTagType(&char) ControlTag
 pub fn C.ConstructTemplate(&C.WebRoute, &&C.Control, &&C.CSS) int
+pub fn C.UpdateUI(&C.cWS, &C.cWR, &C.Control, &&C.Control, &&C.CSS)
 pub fn C.ConstructCSS(&C.WebRoute) &char
-pub fn C.ConstructParent(&C.Control, int) C.String
-pub fn C.ConstructOnClickForm(&C.Control) C.String
-pub fn C.ConstructJS(&C.WJS) C.String
-pub fn C.control2str(&C.Control) C.String
-pub fn C.DumpControls(&C.Control, int) C.String
-
-pub fn C.process_html_line(&data) &&C.Control
+pub fn C.decode_input_symbols(&char) &char
+pub fn C.count_tabs(&char) int
+pub fn C.proccess_html_line(&char) &&C.Control
 pub fn C.ParseHTMLContent(&char) &&C.Control
 
-pub fn C.CreateRoute(&char, &char, &voidptr) &C.WebRoute
-pub fn C.AppendParentControl(&C.WebRoute, &C.Control) int
+pub fn C.ConstructHandler(int, int, int, int, int) C.String
+pub fn C.ChangeElement(int, &&char) C.String
+
+pub fn C.CreateRoute(&char, &char, voidptr) &C.WebRoute
 pub fn C.SetReadOnly(&C.WebRoute, &char) int
 pub fn C.DestroyWebRoute(&C.WebRoute)
 
 pub fn C.CreateControl(int, &char, &char, &char, &&C.Control) &C.Control
+pub fn C.Control__AppendControlAt(&C.Control, int, &C.Control) int
+pub fn C.Control__AppendControlIn(&C.Control, int, &C.Control) int
+pub fn C.Control__SetBuffer(&C.Control, &char) int
+pub fn C.SetStyle(&C.Control, &&char) int
+
+pub fn C.stack_to_heap(C.Control) &C.Control
+pub fn C.Control__AppendStackControl(&C.Control, C.COntrol) int
 pub fn C.AppendControl(&C.Control, &C.Control) int
-pub fn C.DestructControl(&C.Control, int, int)
-pub fn C.ConstructControl(&C.Control, int) C.String
+pub fn C.AppendCSS(&C.Control, &char) int
+pub fn C.create_index_line(int) &C.char
+pub fn C.ControlClicked(&C.Control, C.Map) int
+pub fn C.ConstructControl(&C.Control, int, int) C.String
+pub fn C.DestructControl(&C.Control, int, int) voidptr
+pub fn C.DestructControls(&C.Control) voidptr
+pub fn C.DumpControls(&C.Control, int) C.String
+
+pub fn C.CreateCSS(&char, int, &&char) &C.CSS
+pub fn C.css_stack_to_heap(&C.CSS) &C.CSS
+pub fn C.AppendDesign(&C.CSS, &char) int
+pub fn C.DestroyCSS(&C.CSS) voidptr
