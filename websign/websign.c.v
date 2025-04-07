@@ -69,21 +69,6 @@ pub enum ControlTag {
     form_tag                            = 8504
 }
 
-pub enum WJS_Value_T {
-    form_elements                       = 9040      // Provide a form ID <form id=""></form>
-    element_ids                         = 9041      // Provide an array of element IDs
-}
-
-pub enum WJS_Action_T {
-    no_action                           = 10930
-    redirect                            = 10931
-    msg_before_redirect                 = 10932
-    get_results                         = 10933
-    spin_until_results                  = 10934
-    vertical_boomerang_until_results    = 10935
-    horizontal_boomerang_until_results  = 10936
-}
-
 @[typedef]
 pub struct C.Cookie {
     name            &char
@@ -99,15 +84,6 @@ pub struct C.CSS {
     Class           &char
     Data            &char
     Selector        int
-}
-
-@[typedef]
-pub struct C.WJS {
-    ValueType           WJS_Value_T         // OnClick Action Type
-    Elements            voidptr             // Grab value of other elements using IDs
-    Action              WJS_Action_T        // IF USING ANIMATION TAGS, AnimationID must be set.
-    AnimationID         &char               // Element ID to the element you want animated
-    ChangeID            &char               // Element ID to the element you want its value changed  
 }
 
 @[typedef]
